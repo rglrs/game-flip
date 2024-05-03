@@ -3,6 +3,9 @@
 ## Objective
 The Flip Flop Memory Game is a desktop application developed in Java, designed to test and improve players' memory skills by finding matching pairs of cards. This project utilizes Java Swing for the graphical user interface (GUI) and incorporates multi-threading, file handling, and database functionality.
 
+## Demo Video
+https://www.youtube.com/watch?v=S9w30tHiJ0Y
+
 ## Features
 - **Graphical User Interface (GUI)**: The game presents a grid of cards/tiles, initially facedown, with distinct designs or images on their faces. It includes a score or timer display to track the player's progress.
 - **Game Logic**: 
