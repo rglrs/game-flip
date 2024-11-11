@@ -198,42 +198,50 @@ public class Login_Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_singupActionPerformed
 
     private boolean authenticateUser(String username, String password) {
-        // Perform authentication against the database
         java.sql.Connection conn = null;
-        java.sql.Statement stmt = null;
+        java.sql.PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
-            // absolute path
-            //  conn = DriverManager.getConnection("jdbc:ucanaccess://D:/Uni/Sem/6th sem/Web/Project Flip Flop/Flip Flop With DB/Flip_Flop_DB/src/my_DB_game.accdb");
+            
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            //relative path
-            String dbFilePath = "src/my_DB_game.accdb";
-            conn = DriverManager.getConnection("jdbc:ucanaccess://" + dbFilePath);
-            stmt = conn.createStatement();
-            String sql = "SELECT * FROM user_table WHERE username = '" + username + "' AND password = '" + password + "'";
-            rs = stmt.executeQuery(sql);
+            // Define Connection URL
+            String url = "jdbc:mysql://localhost:3306/flip"; // Replace with your database name
+            String user = "root"; // Replace with your MySQL username
+            String pass = ""; // Replace with your MySQL password
 
-            return rs.next(); // Return true if a row is found (i.e., valid credentials)
-        } catch (SQLException e) {
-            //   e.printStackTrace();
+            // Open a connection
+            conn = DriverManager.getConnection(url, user, pass);
+
+            // Check if the user exists with the provided credentials
+            String sql = "SELECT * FROM user_table WHERE username = ? AND password = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+            rs = pstmt.executeQuery();
+
+            // Return true if a row is found (i.e., valid credentials)
+            return rs.next();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace(); // Handle the exception
         } finally {
             try {
                 if (rs != null) {
                     rs.close();
                 }
-                if (stmt != null) {
-                    stmt.close();
+                if (pstmt != null) {
+                    pstmt.close();
                 }
                 if (conn != null) {
                     conn.close();
                 }
             } catch (SQLException e) {
-                //  e.printStackTrace();
+                e.printStackTrace(); // Handle the exception
             }
         }
-
         return false; // Return false if any exception occurs
     }
+
 
     /**
      * @param args the command line arguments

@@ -166,21 +166,25 @@ public class SignUp_Frame extends javax.swing.JFrame {
         ResultSet rs = null;
 
         try {
-            // absolute path
-            // conn = DriverManager.getConnection("jdbc:ucanaccess://D:/Uni/Sem/6th sem/Web/Project Flip Flop/Flip Flop With DB/Flip_Flop_DB/src/my_DB_game.accdb");
-            //relative path 
+            // Load MySQL JDBC Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String dbFilePath = "src/my_DB_game.accdb";
-            conn = DriverManager.getConnection("jdbc:ucanaccess://" + dbFilePath);
+            // Define Connection URL
+            String url = "jdbc:mysql://localhost:3306/flip"; // Replace with your database name
+            String user = "root"; // Replace with your MySQL username
+            String pass = ""; // Replace with your MySQL password
 
-            // Check if the user already exists
+            // Open a connection
+            conn = DriverManager.getConnection(url, user, pass);
+
+
+            
             String checkUserQuery = "SELECT COUNT(*) FROM user_table WHERE username = ?";
             pstmt = conn.prepareStatement(checkUserQuery);
             pstmt.setString(1, username);
             rs = pstmt.executeQuery();
             rs.next();
             int count = rs.getInt(1);
-
             if (count > 0) {
                 // User already exists
                 return false;
@@ -190,13 +194,11 @@ public class SignUp_Frame extends javax.swing.JFrame {
                 pstmt = conn.prepareStatement(insertUserQuery);
                 pstmt.setString(1, username);
                 pstmt.setString(2, password);
-
                 int rowsAffected = pstmt.executeUpdate();
                 return rowsAffected > 0; // Return true if rows were affected (i.e., user was inserted successfully)
             }
-        } catch (SQLException e) {
-            // Handle the exception
-            //  e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace(); // Handle the exception
         } finally {
             try {
                 if (rs != null) {
@@ -209,11 +211,9 @@ public class SignUp_Frame extends javax.swing.JFrame {
                     conn.close();
                 }
             } catch (SQLException e) {
-                // Handle the exception
-                //  e.printStackTrace();
+                e.printStackTrace(); // Handle the exception
             }
         }
-
         return false; // Return false if any exception occurs
     }
 
