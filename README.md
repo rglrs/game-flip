@@ -3,8 +3,6 @@
 ## Objective
 The Flip Flop Memory Game is a desktop application developed in Java, designed to test and improve players' memory skills by finding matching pairs of cards. This project utilizes Java Swing for the graphical user interface (GUI) and incorporates multi-threading, file handling, and database functionality.
 
-## Demo Video
-https://www.youtube.com/watch?v=S9w30tHiJ0Y
 
 ## Features
 - **Graphical User Interface (GUI)**: The game presents a grid of cards/tiles, initially facedown, with distinct designs or images on their faces. It includes a score or timer display to track the player's progress.
@@ -22,7 +20,7 @@ https://www.youtube.com/watch?v=S9w30tHiJ0Y
 - **Error Handling**: The application handles unexpected errors or exceptions gracefully.
 
 ## Getting Started
-1. Clone the repository: `git clone https://github.com/your-username/flip-flop-memory-game.git`
+1. Clone the repository: `git clone https://github.com/rglrs/game-flip.git`
 2. Open the project in your preferred Java IDE (e.g., NetBeans, IntelliJ IDEA).
 3. Set up the required database (e.g., MySQL) and configure database connection details.
 4. Ensure necessary dependencies are installed.
